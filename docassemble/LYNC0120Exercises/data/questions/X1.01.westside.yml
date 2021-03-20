@@ -1,0 +1,65 @@
+---
+# This block is virtually the same as the first question from the right side. 
+#The only changes are the wording of the question and the variable that is sets.
+question: Describe the work you agreed upon.
+fields:
+  - no label: PLwork_offered
+    datatype: area
+---
+# Same question from right side but with different wording and variable.
+question: Payment
+fields:
+  - How much did you agree to charge?: PLpayment_agreed
+    datatype: currency
+    min: 0
+under: |
+  Enter the value that the work was agreed for. 
+  Minus any money you have already been paid. 
+  If there was no agreed value then enter 0. 
+---
+# Test for Offer and Acceptance
+# This code is going to ask two questions to make sure that
+question: Did the other person agree to ?
+fields:
+  - no label: PLcertainty
+    datatype: radio
+    choices:
+      - Yes. The other person agreed to the exact work: PLagree_exact
+      - Yes. The other person agreed to some of the work but there was other work that was not agreed to that wasn't done: PLagree_inexact
+      - No. The other person did not agree to do some or all of this work: PLdisagree
+---
+# Test for Consideration (and Certainty)
+question: Payment for the Work
+subquestion: |
+  Did you and the other person agree how much you would pay for the work?
+fields:
+  - no label: PLconsideration
+    datatype: radio
+    choices:
+      - Yes, we agreed to pay ${ currency(PLpayment_agreed) } for the work: True
+      - No, we never reached a firm agreement on how much I should pay: False
+---
+# Copied question block for capacity.
+question: Who did you contract with?
+subquestion: |
+  Was the other person an adult?
+yesno: MJFcapacity
+---
+# Copied question to ask if there is a written contract
+question: Written Contract
+subquestion: |
+  A 'written contract' can mean a formal contract document.
+  It can also mean any emails, texts or messages you send
+  or receive about the contract.
+  If your
+  messages contain information about:
+
+  - what work was meant to be done
+  - how much was going to be paid for that work
+  - who was going to do the work and who was going to pay
+
+  Then those messages may be enough to be a 'written contract'.
+fields:
+  - Do you or the other person have a 'written contract'?: MJFwritten_contract
+    datatype: yesnoradio
+---
